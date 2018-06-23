@@ -15,9 +15,21 @@ BOOL __fastcall DROPFILTER_Main(D2UnitStrc* pItem)
 		return TRUE;
 	else if (pItem->pInventory != NULL && pItem->pInventory->dwItemCount > 0) // Filled sockets
 		return TRUE;
+	if (pItem->pItemData->dwItemFlags & ITEMFLAG_NAMED) // Ears & Personalized items
+		return TRUE;
 
-	if (*D2CLIENT_UseNotifierSettings == 1)
-		return pItem->pItemData->bEarLevel == 2; // Experimental, set by Drop Notifier
+	if (*D2CLIENT_UseNotifierSettings == 1) 
+	{
+		// Experimental, set by Drop Notifier
+		if (pItem->pItemData->bEarLevel == 3 || !pItem->pItemData->bEarLevel)
+		{
+			return FALSE;
+		}
+		if (pItem->pItemData->bEarLevel == 2)
+		{
+			return TRUE;
+		}
+	}
 
 	// UNIQUE, SET
 	if (dwQuality == 7 || dwQuality == 5)

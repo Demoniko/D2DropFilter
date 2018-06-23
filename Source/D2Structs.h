@@ -42,7 +42,9 @@ struct D2InventoryStrc
 struct D2ItemDataStrc
 {
 	DWORD dwQuality;
-	BYTE _1[0x44];
+	BYTE _1[0x14];
+	DWORD dwItemFlags;
+	BYTE _2[0x2C];
 	BYTE bEarLevel;
 };
 
